@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e410c5a2-9009-4cc1-9ab5-af17529514a3" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/chart_data_extractor/scrape_engine/scrape_highcharts.py" afterPath="$PROJECT_DIR$/chart_data_extractor/scrape_engine/scrape_highcharts.py" />
-    </list>
+    <list default="true" id="e410c5a2-9009-4cc1-9ab5-af17529514a3" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,8 +19,8 @@
       <file leaf-file-name="scrape_highcharts.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chart_data_extractor/scrape_engine/scrape_highcharts.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="271">
-              <caret line="78" column="48" lean-forward="false" selection-start-line="78" selection-start-column="48" selection-end-line="78" selection-end-column="48" />
+            <state relative-caret-position="1162">
+              <caret line="83" column="28" lean-forward="true" selection-start-line="83" selection-start-column="28" selection-end-line="83" selection-end-column="28" />
               <folding>
                 <element signature="e#911#941#0" expanded="true" />
               </folding>
@@ -58,7 +56,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="75" />
     <option name="y" value="594" />
     <option name="width" value="1281" />
@@ -212,7 +210,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="49" y="594" width="1311" height="771" extended-state="6" />
+    <frame x="49" y="594" width="1311" height="771" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -274,8 +272,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chart_data_extractor/scrape_engine/scrape_highcharts.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="271">
-          <caret line="78" column="48" lean-forward="false" selection-start-line="78" selection-start-column="48" selection-end-line="78" selection-end-column="48" />
+        <state relative-caret-position="1162">
+          <caret line="83" column="28" lean-forward="true" selection-start-line="83" selection-start-column="28" selection-end-line="83" selection-end-column="28" />
           <folding>
             <element signature="e#911#941#0" expanded="true" />
           </folding>
