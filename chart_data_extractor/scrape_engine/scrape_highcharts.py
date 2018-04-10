@@ -6,15 +6,30 @@ Date: 10 April, 2018
 Utilities to scrape chart data from Highcharts.
 
 References: Thanks to answer from here - https://stackoverflow.com/questions/43727621/converting-svg-from-highcharts-data-into-data-points
+
+Must have pre-requisites: 1. Chrome must be installed
+                          2. Chrome-driver must be installed (Refer - https://gist.github.com/thotmx/046b6fa582f0725dc783)
+                          3. Chrome driver must be available in the path (One way to check will be go to cmd and enter
+                          chromedriver. Should you see an error, that means, chrome driver is not available in the path.
+                          In the above link (point 2), refer to step which does sudo ln -s. This step creates a soft link
+                          from the chrom-driver's installed path to /usr/bin/chromedriver.
+
+
 """
 
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 
 class HighchartsScraper(object):
 
     def __init__(self):
         super(HighchartsScraper, self).__init__()
-        self.driver = webdriver.Chrome()
+
+        __chrome_options = Options()
+        __chrome_options.add_argument("--headless")
+        __chrome_options.add_argument("--window-size=1920x1080")
+
+        self.driver = webdriver.Chrome(chrome_options=__chrome_options)
         self.seekUrl = self._seekUrl
         self.getMetadata = self._getMetadata
         self.extractor = self._extractor
@@ -57,7 +72,11 @@ class HighchartsScraper(object):
 
         self.driver.get(self.seekUrl(url))
         chart_number = self.driver.find_element_by_id('container').get_attribute('data-highcharts-chart')
-        chart_data = self.driver.execute_script('var chartData = {}; Highcharts.charts[' + chart_number + '].series.map(function(chartContents, ix){ chartData[ix] = {"seriesName": chartContents.name, "xAxisData" : chartContents.xData, "yAxisData": chartContents.yData}}); return chartData;')
+        chart_data = self.driver.execute_script('var chartData = {}; '
+                                                'Highcharts.charts[' + chart_number + '].'
+                                                'series.map(function(chartContents, ix){ chartData[ix] = '
+                                                '{"seriesName": chartContents.name, "xAxisData" : chartContents.xData, '
+                                                '"yAxisData": chartContents.yData}}); return chartData;')
         print(chart_data)
 
 
