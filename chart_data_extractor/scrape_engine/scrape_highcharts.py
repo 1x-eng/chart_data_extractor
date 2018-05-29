@@ -19,8 +19,9 @@ Must have pre-requisites: 1. Chrome must be installed
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from bs4 import BeautifulSoup
 from chart_data_extractor.scrape_engine.scrape_utilities import ScrapeUtilities
+import js2xml
+import re
 
 class HighchartsScraper(ScrapeUtilities):
 
@@ -89,7 +90,7 @@ class HighchartsScraper(ScrapeUtilities):
         #Get all scripts executed by HighCharts that house data empowering the charts.
         scripts = self.seekAllScriptsContainingKey(soup, "Highcharts.chart")
         #TODO: Extract contents/desired data from within these scripts.
-
+        self.extractContentsFromJs(scripts['extractedScripts'][0])
 
 if __name__ == '__main__':
     he = HighchartsScraper()
