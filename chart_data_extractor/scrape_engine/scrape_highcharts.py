@@ -12,15 +12,17 @@ Must have pre-requisites: 1. Chrome must be installed
                           3. Chrome driver must be available in the path (One way to check will be go to cmd and enter
                           chromedriver. Should you see an error, that means, chrome driver is not available in the path.
                           In the above link (point 2), refer to step which does sudo ln -s. This step creates a soft link
-                          from the chrom-driver's installed path to /usr/bin/chromedriver.
+                          from the chrome-driver's installed path to /usr/bin/chromedriver.
 
 
 """
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from bs4 import BeautifulSoup
+from chart_data_extractor.scrape_engine.scrape_utilities import ScrapeUtilities
 
-class HighchartsScraper(object):
+class HighchartsScraper(ScrapeUtilities):
 
     def __init__(self):
         super(HighchartsScraper, self).__init__()
@@ -33,6 +35,7 @@ class HighchartsScraper(object):
         self.seekUrl = self._seekUrl
         self.getMetadata = self._getMetadata
         self.extractor = self._extractor
+        self.extractUsingSoup = self._extractUsingSoup
 
     def _seekUrl(self, url):
         """
@@ -80,7 +83,15 @@ class HighchartsScraper(object):
         print(chart_data)
 
 
+    def _extractUsingSoup(self, targetUrl):
+
+        soup = self.soupAnUrl(targetUrl)
+        #Get all scripts executed by HighCharts that house data empowering the charts.
+        scripts = self.seekAllScriptsContainingKey(soup, "Highcharts.chart")
+        #TODO: Extract contents/desired data from within these scripts.
+
+
 if __name__ == '__main__':
     he = HighchartsScraper()
-    he.extractor('https://www.highcharts.com/demo/line-basic', {'penumtimate_dom_id': 'chart-container'})
-
+    #he.extractor('https://www.highcharts.com/demo/line-basic', {'penumtimate_dom_id': 'chart-container'})
+    he.extractUsingSoup('https://www.highcharts.com/demo/line-basic')
