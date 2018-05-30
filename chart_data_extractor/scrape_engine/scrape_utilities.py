@@ -5,11 +5,9 @@ Date: May 29, 2018
 Set of utilities to assist in scraping contents of a web page.
 """
 from bs4 import BeautifulSoup
-from slimit import ast
-from slimit.parser import Parser
-from slimit.visitors import nodevisitor
 import re
 import requests
+import demjson
 
 class ScrapeUtilities(object):
 
@@ -67,23 +65,15 @@ class ScrapeUtilities(object):
     def _extractContentsFromJs(self, scriptContents):
 
         try:
-            # parser = Parser()
-            # tree = parser.parse(scriptContents)
-            # fields = {getattr(node.left, 'value', ''): getattr(node.right, 'value', '')
-            #           for node in nodevisitor.visit(tree)
-            #           if isinstance(node, ast.Assign)}
-            # print(fields)
-            print(scriptContents)
-            pattern = re.compile("(\w+): '(.*?)'")
-            fields = dict(re.findall(pattern, scriptContents.text))
-            print(fields)
+
+            chartData = scriptContents.text.split("Highcharts.chart('container',")[1]
+            chartData = chartData.split("});")[0] + '}'
+            return demjson.decode(chartData)
 
         except Exception as e:
             print('######### [ScrapeUtilities]: Error parsing JS')
             print(str(e))
             print('######### [ScrapeUtilities]: End of stackTrace\n')
-
-
 
 
 if __name__ == '__main__':

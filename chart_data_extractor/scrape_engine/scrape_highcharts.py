@@ -20,8 +20,6 @@ Must have pre-requisites: 1. Chrome must be installed
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from chart_data_extractor.scrape_engine.scrape_utilities import ScrapeUtilities
-import js2xml
-import re
 
 class HighchartsScraper(ScrapeUtilities):
 
@@ -35,8 +33,8 @@ class HighchartsScraper(ScrapeUtilities):
         self.driver = webdriver.Chrome(chrome_options=__chrome_options)
         self.seekUrl = self._seekUrl
         self.getMetadata = self._getMetadata
-        self.extractor = self._extractor
-        self.extractUsingSoup = self._extractUsingSoup
+        self.conventionalExtractor = self._extractor
+        self.soupifiedExtractor = self._extractUsingSoup
 
     def _seekUrl(self, url):
         """
@@ -58,7 +56,7 @@ class HighchartsScraper(ScrapeUtilities):
         #TODO: Unpack metadata and accordingly design steps to reach the desired DOM element.
         return
 
-    def _extractor(self, url, meta):
+    def _extractor(self, targetUrl, domId='container'):
         """
         Extractor to scrape data in the following format:
 
@@ -68,31 +66,50 @@ class HighchartsScraper(ScrapeUtilities):
             yAxisData: [,,,] //Missing data will be 'None'
         }
 
-        :param url:
+        :param targetUrl:
         :param meta:
         :return:
         """
-        #TODO: Define steps to reach the actual dom element containing the data. These steps to be driven by metadata.
+        #TODO: Validate how this reacts on dashboard full of charts' not just one chart per URL.
+        try:
+            self.driver.get(self.seekUrl(targetUrl))
+            chart_number = self.driver.find_element_by_id(domId).get_attribute('data-highcharts-chart')
+            chart_data = self.driver.execute_script('var chartData = {}; '
+                                                    'Highcharts.charts[' + chart_number + '].'
+                                                    'series.map(function(chartContents, ix){ chartData[ix] = '
+                                                    '{"seriesName": chartContents.name, "xAxisData" : chartContents.xData, '
+                                                    '"yAxisData": chartContents.yData}}); return chartData;')
+            return chart_data
 
-        self.driver.get(self.seekUrl(url))
-        chart_number = self.driver.find_element_by_id('container').get_attribute('data-highcharts-chart')
-        chart_data = self.driver.execute_script('var chartData = {}; '
-                                                'Highcharts.charts[' + chart_number + '].'
-                                                'series.map(function(chartContents, ix){ chartData[ix] = '
-                                                '{"seriesName": chartContents.name, "xAxisData" : chartContents.xData, '
-                                                '"yAxisData": chartContents.yData}}); return chartData;')
-        print(chart_data)
+        except Exception as e:
+            print('#########[HighchartsScraper]: Error while scraping Highcharts from given URL -{} using '
+                  'webdriver'.format(targetUrl))
+            print(str(e))
+            print('#########[HighchartsScraper]: End of stack trace')
 
 
     def _extractUsingSoup(self, targetUrl):
 
-        soup = self.soupAnUrl(targetUrl)
-        #Get all scripts executed by HighCharts that house data empowering the charts.
-        scripts = self.seekAllScriptsContainingKey(soup, "Highcharts.chart")
-        #TODO: Extract contents/desired data from within these scripts.
-        self.extractContentsFromJs(scripts['extractedScripts'][0])
+        try:
+            soup = self.soupAnUrl(targetUrl)
+            #Get all scripts executed by HighCharts that house data empowering the charts.
+            scripts = self.seekAllScriptsContainingKey(soup, "Highcharts.chart")
+            if (scripts['totalMatch'] >= 1):
+                resultingContents = list(map(lambda script: self.extractContentsFromJs(script),
+                                             scripts['extractedScripts']))
+                return resultingContents
+            else:
+                print("[HighchartsScraper Logs]: There was no Highcharts Object found.")
+                return ["NO Highcharts objects are found in the given URL."]
+
+        except Exception as e:
+            print('#########[HighchartsScraper]: Error while scraping Highcharts from given URL -{} '
+                  'using soup'.format(targetUrl))
+            print(str(e))
+            print('#########[HighchartsScraper]: End of stack trace')
+
 
 if __name__ == '__main__':
     he = HighchartsScraper()
-    #he.extractor('https://www.highcharts.com/demo/line-basic', {'penumtimate_dom_id': 'chart-container'})
-    he.extractUsingSoup('https://www.highcharts.com/demo/line-basic')
+    he.conventionalExtractor('https://www.highcharts.com/demo/line-basic')
+    he.soupifiedExtractor('https://www.highcharts.com/demo/line-basic')
