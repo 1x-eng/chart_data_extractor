@@ -111,5 +111,5 @@ class HighchartsScraper(ScrapeUtilities):
 
 if __name__ == '__main__':
     he = HighchartsScraper()
-    he.conventionalExtractor('https://www.highcharts.com/demo/line-basic')
-    he.soupifiedExtractor('https://www.highcharts.com/demo/line-basic')
+    #he.conventionalExtractor('https://www.highcharts.com/demo/line-basic')
+    print(he.soupifiedExtractor('https://www.highcharts.com/demo/spline-inverted'))

@@ -74,6 +74,8 @@ class ScrapeUtilities(object):
             print('######### [ScrapeUtilities]: Error parsing JS')
             print(str(e))
             print('######### [ScrapeUtilities]: End of stackTrace\n')
+            print('********* [ScrapeUtilities]: Sending through the response as a best effort scrape\n')
+            return chartData
 
 
 if __name__ == '__main__':
