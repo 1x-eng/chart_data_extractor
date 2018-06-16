@@ -7,7 +7,6 @@ Set of utilities to assist in scraping contents of a web page.
 from bs4 import BeautifulSoup
 import re
 import requests
-import demjson
 
 class ScrapeUtilities(object):
 
@@ -16,7 +15,6 @@ class ScrapeUtilities(object):
         self.soupAnUrl = self._soupAnUrl
         self.getDomIdContainingAttribute = self._getDomIdContainingAttribute
         self.seekAllScriptsContainingKey = self._seekAllScriptsContainingKey
-        self.extractContentsFromJs = self._extractContentsFromJs
 
     def _getDomIdContainingAttribute(self, soup, domType='div', attributeName='id', attributeContents='container'):
         """
@@ -61,21 +59,6 @@ class ScrapeUtilities(object):
             print(str(e))
             print('######### [ScrapeUtilities]: End of stackTrace\n')
 
-
-    def _extractContentsFromJs(self, scriptContents):
-
-        try:
-
-            chartData = scriptContents.text.split("Highcharts.chart('container',")[1]
-            chartData = chartData.split("});")[0] + '}'
-            return demjson.decode(chartData)
-
-        except Exception as e:
-            print('######### [ScrapeUtilities]: Error parsing JS')
-            print(str(e))
-            print('######### [ScrapeUtilities]: End of stackTrace\n')
-            print('********* [ScrapeUtilities]: Sending through the response as a best effort scrape\n')
-            return chartData
 
 
 if __name__ == '__main__':

@@ -20,6 +20,7 @@ Must have pre-requisites: 1. Chrome must be installed
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from chart_data_extractor.scrape_engine.scrape_utilities import ScrapeUtilities
+import demjson
 
 class HighchartsScraper(ScrapeUtilities):
 
@@ -90,12 +91,25 @@ class HighchartsScraper(ScrapeUtilities):
 
     def _extractUsingSoup(self, targetUrl):
 
+        def extractContentsFromJs(scriptContents):
+
+            try:
+
+                chartData = scriptContents.text.split("Highcharts.chart('container',")[1]
+                chartData = chartData.split("});")[0] + '}'
+                return demjson.decode(chartData)
+
+            except Exception as e:
+                print('######### [HighchartsScraper]: Error parsing JS')
+                print(str(e))
+                print('######### [HighchartsScraper]: End of stackTrace\n')
+
         try:
             soup = self.soupAnUrl(targetUrl)
             #Get all scripts executed by HighCharts that house data empowering the charts.
             scripts = self.seekAllScriptsContainingKey(soup, "Highcharts.chart")
             if (scripts['totalMatch'] >= 1):
-                resultingContents = list(map(lambda script: self.extractContentsFromJs(script),
+                resultingContents = list(map(lambda script: extractContentsFromJs(script),
                                              scripts['extractedScripts']))
                 return resultingContents
             else:
