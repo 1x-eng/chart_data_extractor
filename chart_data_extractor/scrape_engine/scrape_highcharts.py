@@ -33,7 +33,6 @@ class HighchartsScraper(ScrapeUtilities):
 
         self.driver = webdriver.Chrome(chrome_options=__chrome_options)
         self.seekUrl = self._seekUrl
-        self.getMetadata = self._getMetadata
         self.conventionalExtractor = self._extractor
         self.soupifiedExtractor = self._extractUsingSoup
 
@@ -47,17 +46,7 @@ class HighchartsScraper(ScrapeUtilities):
         #TODO: Validate URL!
         return url
 
-    def _getMetadata(self, meta):
-        """
-        Metadata defining steps to reach the dom element that contains chart.
-
-        :param meta:
-        :return:
-        """
-        #TODO: Unpack metadata and accordingly design steps to reach the desired DOM element.
-        return
-
-    def _extractor(self, targetUrl, domId='container'):
+    def _extractor(self, targetUrl):
         """
         Extractor to scrape data in the following format:
 
@@ -73,8 +62,12 @@ class HighchartsScraper(ScrapeUtilities):
         """
         #TODO: Validate how this reacts on dashboard full of charts' not just one chart per URL.
         try:
+            #get DOM id hosting highcharts.
+            soup = self.soupAnUrl(targetUrl)
+            domIdHostingChart = soup.text.split("Highcharts.chart(")[1].split("'")[1]
+
             self.driver.get(self.seekUrl(targetUrl))
-            chart_number = self.driver.find_element_by_id(domId).get_attribute('data-highcharts-chart')
+            chart_number = self.driver.find_element_by_id(domIdHostingChart).get_attribute('data-highcharts-chart')
             chart_data = self.driver.execute_script('var chartData = {}; '
                                                     'Highcharts.charts[' + chart_number + '].'
                                                     'series.map(function(chartContents, ix){ chartData[ix] = '
@@ -94,8 +87,10 @@ class HighchartsScraper(ScrapeUtilities):
         def extractContentsFromJs(scriptContents):
 
             try:
+                # get DOM id hosting highcharts.
+                domIdHostingChart = scriptContents.text.split("Highcharts.chart(")[1].split("'")[1]
 
-                chartData = scriptContents.text.split("Highcharts.chart('container',")[1]
+                chartData = scriptContents.text.split("Highcharts.chart('"+domIdHostingChart+"',")[1]
                 chartData = chartData.split("});")[0] + '}'
                 return demjson.decode(chartData)
 
@@ -125,5 +120,5 @@ class HighchartsScraper(ScrapeUtilities):
 
 if __name__ == '__main__':
     he = HighchartsScraper()
-    #he.conventionalExtractor('https://www.highcharts.com/demo/line-basic')
+    #print(he.conventionalExtractor('https://www.highcharts.com/demo/spline-inverted'))
     print(he.soupifiedExtractor('https://www.highcharts.com/demo/spline-inverted'))
