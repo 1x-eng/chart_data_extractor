@@ -15,6 +15,7 @@ class ScrapeUtilities(object):
         self.soupAnUrl = self._soupAnUrl
         self.getDomIdContainingAttribute = self._getDomIdContainingAttribute
         self.seekAllScriptsContainingKey = self._seekAllScriptsContainingKey
+        self.scanUrlForScripts = self._checkUrlForTypeOfCharts
 
     def _getDomIdContainingAttribute(self, soup, domType='div', attributeName='id', attributeContents='container'):
         """
@@ -59,11 +60,29 @@ class ScrapeUtilities(object):
             print(str(e))
             print('######### [ScrapeUtilities]: End of stackTrace\n')
 
+    def _checkUrlForTypeOfCharts(self, targetUrl):
+        """
+        Take given URL, learn if it uses AmCharts, HighCharts or others
+
+        :param targetUrl:
+        :return:
+        """
+        supportedChartingFrameworks = ['Amcharts', 'Highcharts']
+        soupifiedText = self._soupAnUrl(targetUrl).text
+        chartsStatus= list(map(lambda cf: cf in soupifiedText, supportedChartingFrameworks))
+        if (chartsStatus[0]):
+            print('AmCharts Pipelilne')
+        elif (chartsStatus[1]):
+            print('Highcharts pipeline')
+        else:
+            print('No charts / Unsupported charts')
+
 
 
 if __name__ == '__main__':
     su = ScrapeUtilities()
-    soupifiedPage = su.soupAnUrl('https://www.highcharts.com/demo/line-basic')
-    print(su.getDomIdContainingAttribute(soupifiedPage, attributeName='data-highcharts-chart', attributeContents='0'))
+    #soupifiedPage = su.soupAnUrl('https://www.highcharts.com/demo/line-basic')
+    #print(su.getDomIdContainingAttribute(soupifiedPage, attributeName='data-highcharts-chart', attributeContents='0'))
+    su.scanUrlForScripts('https://www.highcharts.com/demo/line-basic')
 
 
