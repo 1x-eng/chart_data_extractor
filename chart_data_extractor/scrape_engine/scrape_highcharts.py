@@ -21,6 +21,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from chart_data_extractor.scrape_engine.scrape_utilities import ScrapeUtilities
 import demjson
+import json
 
 class HighchartsScraper(ScrapeUtilities):
 
@@ -32,11 +33,12 @@ class HighchartsScraper(ScrapeUtilities):
         __chrome_options.add_argument("--window-size=1920x1080")
 
         self.driver = webdriver.Chrome(chrome_options=__chrome_options)
-        self.seekUrl = self._seekUrl
-        self.conventionalExtractor = self._extractor
-        self.soupifiedExtractor = self._extractUsingSoup
+        self.seekUrl = self.__seekUrl
+        self.conventionalExtractor = self.__extractor
+        self.soupifiedExtractor = self.__extractUsingSoup
+        self.hcExtractor = self.__tryExtractingViaPipeline
 
-    def _seekUrl(self, url):
+    def __seekUrl(self, url):
         """
         Validate given URL to be alive!
 
@@ -46,7 +48,7 @@ class HighchartsScraper(ScrapeUtilities):
         #TODO: Validate URL!
         return url
 
-    def _extractor(self, targetUrl):
+    def __extractor(self, targetUrl):
         """
         Extractor to scrape data in the following format:
 
@@ -60,29 +62,30 @@ class HighchartsScraper(ScrapeUtilities):
         :param meta:
         :return:
         """
-        #TODO: Validate how this reacts on dashboard full of charts' not just one chart per URL.
         try:
             #get DOM id hosting highcharts.
-            soup = self.soupAnUrl(targetUrl)
-            domIdHostingChart = soup.text.split("Highcharts.chart(")[1].split("'")[1]
-
             self.driver.get(self.seekUrl(targetUrl))
-            chart_number = self.driver.find_element_by_id(domIdHostingChart).get_attribute('data-highcharts-chart')
-            chart_data = self.driver.execute_script('var chartData = {}; '
-                                                    'Highcharts.charts[' + chart_number + '].'
-                                                    'series.map(function(chartContents, ix){ chartData[ix] = '
-                                                    '{"seriesName": chartContents.name, "xAxisData" : chartContents.xData, '
-                                                    '"yAxisData": chartContents.yData}}); return chartData;')
-            return chart_data
+            chartElements = self.driver.find_elements_by_class_name('highcharts-container')
+            chartIds = list(map( lambda ce: ce.find_element_by_xpath('..')
+                                               .get_attribute('data-highcharts-chart'), chartElements))
+
+            chartDataStore = list(map(lambda cid: self.driver.execute_script('var chartData = {}; '
+                                            'Highcharts.charts[' + cid + '].'
+                                            'series.map(function(chartContents, ix){ chartData[ix] = '
+                                            '{"seriesName": chartContents.name, "xAxisData" : chartContents.xData, '
+                                            '"yAxisData": chartContents.yData}}); return chartData;'), chartIds))
+
+            return chartDataStore
 
         except Exception as e:
             print('#########[HighchartsScraper]: Error while scraping Highcharts from given URL -{} using '
                   'webdriver'.format(targetUrl))
             print(str(e))
             print('#########[HighchartsScraper]: End of stack trace')
+            return {'message': 'Error while scraping Highcharts from target url using webdriver.'}
 
 
-    def _extractUsingSoup(self, targetUrl):
+    def __extractUsingSoup(self, targetUrl):
 
         def extractContentsFromJs(scriptContents):
 
@@ -109,16 +112,66 @@ class HighchartsScraper(ScrapeUtilities):
                 return resultingContents
             else:
                 print("[HighchartsScraper Logs]: There was no Highcharts Object found.")
-                return ["NO Highcharts objects are found in the given URL."]
+                return {'message': 'No Highcharts object found in the given target URL'}
 
         except Exception as e:
             print('#########[HighchartsScraper]: Error while scraping Highcharts from given URL -{} '
                   'using soup'.format(targetUrl))
             print(str(e))
             print('#########[HighchartsScraper]: End of stack trace')
+            return {'message': 'Error while scraping Highcharts from target url using Soup.'}
+
+
+    def __tryExtractingViaPipeline(self, targetUrl):
+
+        """
+        Pipeline effort to try extracting via Selenium webdriver and Soupified extractor.
+        :return:
+        """
+        try:
+            extractedResults = {}
+            # Step 1: Try Soupified extractor.
+            soupifiedResults = self.__extractUsingSoup(targetUrl=targetUrl)
+
+            if ((type(soupifiedResults) is dict and 'message' in soupifiedResults) or (type(soupifiedResults) is list
+                                                                                      and (len(soupifiedResults) == 0
+                                                                                       or None in soupifiedResults))):
+                #Step 2: Try WebDriver extractor.
+                webdriverResults = self.__extractor(targetUrl=targetUrl)
+                if type(webdriverResults) is dict and 'message' in webdriverResults:
+                    extractedResults['message'] = 'Our Pipeline is unable to scrape Highcharts from given URL. For further' \
+                                                  'enquiry, please write to PK @ pruthvikumar.123@gmail.com with ' \
+                                                  'valid subject line. (Eg. Unable to Scrape from http://www.abcd.com)'
+                    extractedResults['status'] = 'Failure'
+                    return json.dumps(extractedResults)
+
+                extractedResults['message'] = 'Successfully scraped Highcharts from given target URL'
+                extractedResults['status'] = 'Success'
+                extractedResults['scrapeResults'] = webdriverResults
+                return json.dumps(extractedResults)
+
+            extractedResults['message'] = 'Successfully scraped Highcharts from given target URL'
+            extractedResults['status'] = 'Success'
+            extractedResults['scrapeResults'] = soupifiedResults
+            return json.dumps(extractedResults)
+
+
+        except Exception as e:
+            print('#########[HighchartsScraperPipeline]: Something did not work as expected in the pipeline for scraping'
+                  'HighCharts. Stack trace to follow')
+            print(str(e))
+            print('#########[HighchartsScraperPipeline]: End of Stacktrace')
+            return json.dumps({
+                'message': 'HighCharts scraper has failed to complete successfully.',
+                'stackTrace': str(e),
+                'hint': 'To facilitate debug and seek help, please report this message as is to PK '
+                        '@ pruthvikumar.123@gmail.com. To facilitate quick response make sure to include subject line'
+                        ' as: HighCharts Scraper Bug.'
+            })
 
 
 if __name__ == '__main__':
     he = HighchartsScraper()
-    #print(he.conventionalExtractor('https://www.highcharts.com/demo/spline-inverted'))
-    print(he.soupifiedExtractor('https://www.highcharts.com/demo/spline-inverted'))
+    #print(he.conventionalExtractor('https://www.marketwatch.com/investing/future/nasdaq%20100%20futures'))
+    #print(he.soupifiedExtractor('https://www.moneycontrol.com/sensex/bse/sensex-live'))
+    print(he.hcExtractor('https://www.marketwatch.com/investing/future/nasdaq%20100%20futures'))

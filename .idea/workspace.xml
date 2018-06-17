@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e410c5a2-9009-4cc1-9ab5-af17529514a3" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chart_data_extractor/scrape_engine/scrape_highcharts.py" beforeDir="false" afterPath="$PROJECT_DIR$/chart_data_extractor/scrape_engine/scrape_highcharts.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -18,11 +19,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="225">
-      <file leaf-file-name="scrape_highcharts.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="scrape_highcharts.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chart_data_extractor/scrape_engine/scrape_highcharts.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="872">
-              <caret line="94" column="48" lean-forward="true" selection-start-line="94" selection-start-column="48" selection-end-line="94" selection-end-column="48" />
+            <state relative-caret-position="-599">
+              <caret line="116" column="30" lean-forward="true" selection-start-line="116" selection-start-column="30" selection-end-line="116" selection-end-column="30" />
               <folding>
                 <element signature="e#912#942#0" expanded="true" />
               </folding>
@@ -33,32 +34,17 @@
       <file leaf-file-name="scrape_amcharts.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chart_data_extractor/scrape_engine/scrape_amcharts.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1650">
-              <caret line="113" column="68" selection-start-line="113" selection-start-column="52" selection-end-line="113" selection-end-column="68" />
-              <folding>
-                <element signature="e#137#167#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="270">
+              <caret line="78" column="86" lean-forward="true" selection-start-line="78" selection-start-column="16" selection-end-line="78" selection-end-column="86" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="extractor.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/chart_data_extractor/extractor.py">
+      <file leaf-file-name="webdriver.py" pinned="false" current-in-tab="true">
+        <entry file="file://$USER_HOME$/anaconda3/envs/pk_py3_conda3/lib/python3.6/site-packages/selenium/webdriver/remote/webdriver.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="7" column="3" lean-forward="true" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="3" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="scrape_utilities.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/chart_data_extractor/scrape_engine/scrape_utilities.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-60">
-              <caret line="8" column="15" selection-start-line="8" selection-start-column="15" selection-end-line="8" selection-end-column="15" />
-              <folding>
-                <element signature="e#116#145#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="84">
+              <caret line="556" column="8" selection-start-line="556" selection-start-column="8" selection-end-line="556" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -75,6 +61,7 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>Hi</find>
+      <find>NO</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -280,7 +267,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="49" y="594" width="1311" height="771" extended-state="6" />
+    <frame x="48" y="580" width="1313" height="786" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13806255" />
@@ -313,10 +300,57 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="40" />
+      <breakpoints-dialog>
+        <breakpoints-dialog />
+      </breakpoints-dialog>
+      <option name="time" value="53" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/chart_data_extractor/scrape_engine/scrape_highcharts.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="33" column="71" selection-start-line="33" selection-start-column="71" selection-end-line="33" selection-end-column="71" />
+          <folding>
+            <element signature="e#912#942#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chart_data_extractor/scrape_engine/scrape_highcharts.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1800">
+          <caret line="123" column="62" selection-start-line="123" selection-start-column="62" selection-end-line="123" selection-end-column="62" />
+          <folding>
+            <element signature="e#912#942#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chart_data_extractor/scrape_engine/scrape_amcharts.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1650">
+          <caret line="113" column="68" selection-start-line="113" selection-start-column="52" selection-end-line="113" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chart_data_extractor/extractor.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="3" lean-forward="true" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chart_data_extractor/scrape_engine/scrape_utilities.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="8" column="15" selection-start-line="8" selection-start-column="15" selection-end-line="8" selection-end-column="15" />
+          <folding>
+            <element signature="e#116#145#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/chart_data_extractor/scrape_engine/scrape_highcharts.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1425">
@@ -344,9 +378,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="810">
           <caret line="57" selection-start-line="57" selection-end-line="57" />
-          <folding>
-            <element signature="e#137#167#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -399,27 +430,24 @@
     <entry file="file://$PROJECT_DIR$/chart_data_extractor/requirements.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/chart_data_extractor/scrape_engine/scrape_amcharts.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1650">
-          <caret line="113" column="68" selection-start-line="113" selection-start-column="52" selection-end-line="113" selection-end-column="68" />
-          <folding>
-            <element signature="e#137#167#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/chart_data_extractor/extractor.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
-          <caret line="7" column="3" lean-forward="true" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="3" />
+          <caret line="7" column="3" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/envs/pk_py3_conda3/lib/python3.6/site-packages/selenium/webdriver/common/service.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="89" column="17" lean-forward="true" selection-start-line="89" selection-start-column="17" selection-end-line="89" selection-end-column="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/chart_data_extractor/scrape_engine/scrape_utilities.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-60">
-          <caret line="8" column="15" selection-start-line="8" selection-start-column="15" selection-end-line="8" selection-end-column="15" />
+        <state relative-caret-position="-38">
+          <caret line="48" column="8" selection-start-line="48" selection-start-column="8" selection-end-line="48" selection-end-column="8" />
           <folding>
             <element signature="e#116#145#0" expanded="true" />
           </folding>
@@ -428,11 +456,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chart_data_extractor/scrape_engine/scrape_highcharts.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="872">
-          <caret line="94" column="48" lean-forward="true" selection-start-line="94" selection-start-column="48" selection-end-line="94" selection-end-column="48" />
+        <state relative-caret-position="-599">
+          <caret line="116" column="30" lean-forward="true" selection-start-line="116" selection-start-column="30" selection-end-line="116" selection-end-column="30" />
           <folding>
             <element signature="e#912#942#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chart_data_extractor/scrape_engine/scrape_amcharts.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="78" column="86" lean-forward="true" selection-start-line="78" selection-start-column="16" selection-end-line="78" selection-end-column="86" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/envs/pk_py3_conda3/lib/python3.6/site-packages/selenium/webdriver/remote/webdriver.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="556" column="8" selection-start-line="556" selection-start-column="8" selection-end-line="556" selection-end-column="8" />
         </state>
       </provider>
     </entry>
