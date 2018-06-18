@@ -11,6 +11,7 @@ TODO: Make pipeline results same across both steps.
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from scrape_engine.scrape_utilities import ScrapeUtilities
+import json
 
 class AmchartsScraper(ScrapeUtilities):
 

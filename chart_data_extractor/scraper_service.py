@@ -4,6 +4,8 @@ Email: pruthvikumar.123@gmail.com
 Date: June 18, 2018
 
 This is the main file for Gunicorn. This file contains all the routes to respective scraper methods.
+
+PS: chart_data_extractor must be marked as source directory for imports to be functional.
 """
 
 import falcon

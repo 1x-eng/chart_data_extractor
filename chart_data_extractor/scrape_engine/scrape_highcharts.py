@@ -21,7 +21,6 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from scrape_engine.scrape_utilities import ScrapeUtilities
 import demjson
-import json
 
 class HighchartsScraper(ScrapeUtilities):
 
@@ -143,17 +142,17 @@ class HighchartsScraper(ScrapeUtilities):
                                                   'enquiry, please write to PK @ pruthvikumar.123@gmail.com with ' \
                                                   'valid subject line. (Eg. Unable to Scrape from http://www.abcd.com)'
                     extractedResults['status'] = 'Failure'
-                    return json.dumps(extractedResults)
+                    return extractedResults
 
                 extractedResults['message'] = 'Successfully scraped Highcharts from given target URL'
                 extractedResults['status'] = 'Success'
                 extractedResults['scrapeResults'] = webdriverResults
-                return json.dumps(extractedResults)
+                return extractedResults
 
             extractedResults['message'] = 'Successfully scraped Highcharts from given target URL'
             extractedResults['status'] = 'Success'
             extractedResults['scrapeResults'] = soupifiedResults
-            return json.dumps(extractedResults)
+            return extractedResults
 
 
         except Exception as e:
@@ -161,13 +160,13 @@ class HighchartsScraper(ScrapeUtilities):
                   'HighCharts. Stack trace to follow')
             print(str(e))
             print('#########[HighchartsScraperPipeline]: End of Stacktrace')
-            return json.dumps({
+            return {
                 'message': 'HighCharts scraper has failed to complete successfully.',
                 'stackTrace': str(e),
                 'hint': 'To facilitate debug and seek help, please report this message as is to PK '
                         '@ pruthvikumar.123@gmail.com. To facilitate quick response make sure to include subject line'
                         ' as: HighCharts Scraper Bug.'
-            })
+            }
 
 
 if __name__ == '__main__':
