@@ -19,7 +19,7 @@ Must have pre-requisites: 1. Chrome must be installed
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from chart_data_extractor.scrape_engine.scrape_utilities import ScrapeUtilities
+from scrape_engine.scrape_utilities import ScrapeUtilities
 import demjson
 import json
 

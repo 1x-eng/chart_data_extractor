@@ -10,8 +10,7 @@ TODO: Make pipeline results same across both steps.
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from chart_data_extractor.scrape_engine.scrape_utilities import ScrapeUtilities
-import json
+from scrape_engine.scrape_utilities import ScrapeUtilities
 
 class AmchartsScraper(ScrapeUtilities):
 
@@ -107,17 +106,17 @@ class AmchartsScraper(ScrapeUtilities):
                                                   'enquiry, please write to PK @ pruthvikumar.123@gmail.com with ' \
                                                   'valid subject line. (Eg. Unable to Scrape from http://www.abcd.com)'
                     extractedResults['status'] = 'Failure'
-                    return json.dumps(extractedResults)
+                    return extractedResults
 
                 extractedResults['message'] = 'Successfully scraped AmCharts from given target URL'
                 extractedResults['status'] = 'Success'
                 extractedResults['scrapeResults'] = webdriverResults
-                return json.dumps(extractedResults)
+                return extractedResults
 
             extractedResults['message'] = 'Successfully scraped AmCharts from given target URL'
             extractedResults['status'] = 'Success'
             extractedResults['scrapeResults'] = soupifiedResults
-            return json.dumps(extractedResults)
+            return extractedResults
 
 
         except Exception as e:
@@ -125,13 +124,13 @@ class AmchartsScraper(ScrapeUtilities):
                   'AmCharts. Stack trace to follow')
             print(str(e))
             print('#########[AmchartsScraperPipeline]: End of Stacktrace')
-            return json.dumps({
+            return {
                 'message': 'AmCharts scraper has failed to complete successfully.',
                 'stackTrace': str(e),
                 'hint': 'To facilitate debug and seek help, please report this message as is to PK '
                         '@ pruthvikumar.123@gmail.com. To facilitate quick response make sure to include subject line'
                         ' as: AmCharts Scraper Bug.'
-            })
+            }
 
 
 

@@ -7,8 +7,8 @@ Extractor is the main entrypoint file that is associated with all relevant & res
 
 """
 
-from chart_data_extractor.scrape_engine.scrape_amcharts import AmchartsScraper
-from chart_data_extractor.scrape_engine.scrape_highcharts import HighchartsScraper
+from scrape_engine.scrape_amcharts import AmchartsScraper
+from scrape_engine.scrape_highcharts import HighchartsScraper
 
 class ChartsDataExtractor(AmchartsScraper, HighchartsScraper):
 
@@ -41,8 +41,7 @@ class ChartsDataExtractor(AmchartsScraper, HighchartsScraper):
                                'extend support for charting library "xyz"'}
 
 
-
-
 if __name__ == '__main__':
     cde = ChartsDataExtractor()
-    print(cde.executePipeline('https://www.highcharts.com/demo/line-basic'))
+    print(cde.executePipeline(targetUrl='https://www.marketwatch.com/investing/future/nasdaq%20100%20futures'))
+
