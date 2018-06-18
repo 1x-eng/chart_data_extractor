@@ -26,7 +26,8 @@ class ChartsDataExtractor(AmchartsScraper, HighchartsScraper):
         #Step 1: Identify type of charts present.
         supportedChartingFrameworks = ['Amcharts', 'Highcharts']
         soupifiedText = self.soupAnUrl(targetUrl).text
-        chartsStatus = list(map(lambda cf: cf in soupifiedText, supportedChartingFrameworks))
+        chartsStatus = list(map(lambda cf: cf in soupifiedText or cf.lower() in soupifiedText
+                                          or cf.upper() in soupifiedText, supportedChartingFrameworks))
 
         if (chartsStatus[0]):
             return self.amcExtractor(targetUrl)
