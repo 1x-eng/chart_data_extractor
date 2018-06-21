@@ -1,4 +1,7 @@
 requests==2.18.4
-selenium==3.11.0
-demjson==2.2.4
+pygogo==0.12.0
 beautifulsoup4==4.6.0
+demjson==2.2.4
+falcon==1.4.1
+falcon_cors==1.1.7
+selenium==3.12.0
