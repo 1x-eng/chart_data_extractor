@@ -14,7 +14,7 @@ class MyUtilities(object):
         self.getLogger = self._logger
 
 
-    def _logger(self, logFileName='pk_logger_genericName', logFilePath='./logs/pk_logger_genericName'):
+    def _logger(self, logFileName='pk_logger_genericName', logFilePath='./logs/pk_logger_genericName.log'):
         log_format = '[%(asctime)s] <---> [%(name)s] <---> [%(levelname)s] <---> [%(message)s]'
         formatter = logging.Formatter(log_format)
         myLogger = gogo.Gogo(
