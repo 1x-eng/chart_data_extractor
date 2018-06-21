@@ -11,9 +11,10 @@ TODO: Make pipeline results same across both steps.
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from scrape_engine.scrape_utilities import ScrapeUtilities
+from utilities.utilities import MyUtilities
 import json
 
-class AmchartsScraper(ScrapeUtilities):
+class AmchartsScraper(ScrapeUtilities, MyUtilities):
 
     def __init__(self):
         super(AmchartsScraper, self).__init__()
@@ -26,6 +27,9 @@ class AmchartsScraper(ScrapeUtilities):
         self.conventionalExtractor = self.__extractor
         self.soupifiedExtractor = self.__extractUsingSoup
         self.amcExtractor = self.__tryExtractingViaPipeline
+
+        self.logger = self.getLogger(logFileName='pk_scraperService_amChartsScraper',
+                                     logFilePath='./logs/pk_scraperService_amChartsScraper.log')
 
     def __extractor(self, targetUrl):
         """
@@ -44,10 +48,10 @@ class AmchartsScraper(ScrapeUtilities):
             return chart_data
 
         except Exception as e:
-            print('#########[AmchartsScraper]: Error while scraping AmCharts from given URL -{} using '
+            self.logger.info('#########[AmchartsScraper]: Error while scraping AmCharts from given URL -{} using '
                   'webdriver'.format(targetUrl))
-            print(str(e))
-            print('#########[AmchartsScraper]: End of stack trace')
+            self.logger.exception(str(e))
+            self.logger.info('#########[AmchartsScraper]: End of stack trace')
             return {'message': 'Error while scraping AmCharts from target url using webdriver.'}
 
 
@@ -62,9 +66,9 @@ class AmchartsScraper(ScrapeUtilities):
 
 
             except Exception as e:
-                print('######### [AmchartsScraper]: Error parsing JS')
-                print(str(e))
-                print('######### [AmchartsScraper]: End of stackTrace\n')
+                self.logger.info('######### [AmchartsScraper]: Error parsing JS')
+                self.logger.exception(str(e))
+                self.logger.info('######### [AmchartsScraper]: End of stackTrace\n')
 
         try:
             soup = self.soupAnUrl(targetUrl)
@@ -75,14 +79,14 @@ class AmchartsScraper(ScrapeUtilities):
                                              scripts['extractedScripts']))
                 return resultingContents
             else:
-                print("[AmchartsScraper Logs]: There was no Amcharts Object found.")
+                self.logger.info("[AmchartsScraper Logs]: There was no Amcharts Object found.")
                 return {'message': 'No AmCharts object found in the given target URL'}
 
         except Exception as e:
-            print('#########[AmchartsScraper]: Error while scraping Amcharts from given URL -{} '
+            self.logger.info('#########[AmchartsScraper]: Error while scraping Amcharts from given URL -{} '
                   'using soup'.format(targetUrl))
-            print(str(e))
-            print('#########[AmchartsScraper]: End of stack trace')
+            self.logger.exception(str(e))
+            self.logger.info('#########[AmchartsScraper]: End of stack trace')
             return {'message': 'Error while scraping AmCharts from target url using Soup.'}
 
 
@@ -121,10 +125,10 @@ class AmchartsScraper(ScrapeUtilities):
 
 
         except Exception as e:
-            print('#########[AmchartsScraperPipeline]: Something did not work as expected in the pipeline for scraping'
+            self.logger.info('#########[AmchartsScraperPipeline]: Something did not work as expected in the pipeline for scraping'
                   'AmCharts. Stack trace to follow')
-            print(str(e))
-            print('#########[AmchartsScraperPipeline]: End of Stacktrace')
+            self.logger.exception(str(e))
+            self.logger.info('#########[AmchartsScraperPipeline]: End of Stacktrace')
             return {
                 'message': 'AmCharts scraper has failed to complete successfully.',
                 'stackTrace': str(e),

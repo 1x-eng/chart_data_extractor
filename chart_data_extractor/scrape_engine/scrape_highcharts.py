@@ -20,9 +20,10 @@ Must have pre-requisites: 1. Chrome must be installed
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from scrape_engine.scrape_utilities import ScrapeUtilities
+from utilities.utilities import MyUtilities
 import demjson
 
-class HighchartsScraper(ScrapeUtilities):
+class HighchartsScraper(ScrapeUtilities, MyUtilities):
 
     def __init__(self):
         super(HighchartsScraper, self).__init__()
@@ -36,6 +37,9 @@ class HighchartsScraper(ScrapeUtilities):
         self.conventionalExtractor = self.__extractor
         self.soupifiedExtractor = self.__extractUsingSoup
         self.hcExtractor = self.__tryExtractingViaPipeline
+
+        self.logger = self.getLogger(logFileName='pk_scraperService_highChartsScraper',
+                                     logFilePath='./logs/pk_scraperService_highChartsScraper.log')
 
     def __seekUrl(self, url):
         """
@@ -77,10 +81,10 @@ class HighchartsScraper(ScrapeUtilities):
             return chartDataStore
 
         except Exception as e:
-            print('#########[HighchartsScraper]: Error while scraping Highcharts from given URL -{} using '
+            self.logger.info('#########[HighchartsScraper]: Error while scraping Highcharts from given URL -{} using '
                   'webdriver'.format(targetUrl))
-            print(str(e))
-            print('#########[HighchartsScraper]: End of stack trace')
+            self.logger.exception(str(e))
+            self.logger.info('#########[HighchartsScraper]: End of stack trace')
             return {'message': 'Error while scraping Highcharts from target url using webdriver.'}
 
 
@@ -97,9 +101,9 @@ class HighchartsScraper(ScrapeUtilities):
                 return demjson.decode(chartData)
 
             except Exception as e:
-                print('######### [HighchartsScraper]: Error parsing JS')
-                print(str(e))
-                print('######### [HighchartsScraper]: End of stackTrace\n')
+                self.logger.info('######### [HighchartsScraper]: Error parsing JS')
+                self.logger.exception(str(e))
+                self.logger.info('######### [HighchartsScraper]: End of stackTrace\n')
 
         try:
             soup = self.soupAnUrl(targetUrl)
@@ -110,14 +114,14 @@ class HighchartsScraper(ScrapeUtilities):
                                              scripts['extractedScripts']))
                 return resultingContents
             else:
-                print("[HighchartsScraper Logs]: There was no Highcharts Object found.")
+                self.logger.info("[HighchartsScraper Logs]: There was no Highcharts Object found.")
                 return {'message': 'No Highcharts object found in the given target URL'}
 
         except Exception as e:
-            print('#########[HighchartsScraper]: Error while scraping Highcharts from given URL -{} '
+            self.logger.info('#########[HighchartsScraper]: Error while scraping Highcharts from given URL -{} '
                   'using soup'.format(targetUrl))
-            print(str(e))
-            print('#########[HighchartsScraper]: End of stack trace')
+            self.logger.exception(str(e))
+            self.logger.info('#########[HighchartsScraper]: End of stack trace')
             return {'message': 'Error while scraping Highcharts from target url using Soup.'}
 
 
@@ -156,10 +160,10 @@ class HighchartsScraper(ScrapeUtilities):
 
 
         except Exception as e:
-            print('#########[HighchartsScraperPipeline]: Something did not work as expected in the pipeline for scraping'
+            self.logger.info('#########[HighchartsScraperPipeline]: Something did not work as expected in the pipeline for scraping'
                   'HighCharts. Stack trace to follow')
-            print(str(e))
-            print('#########[HighchartsScraperPipeline]: End of Stacktrace')
+            self.logger.exception(str(e))
+            self.logger.info('#########[HighchartsScraperPipeline]: End of Stacktrace')
             return {
                 'message': 'HighCharts scraper has failed to complete successfully.',
                 'stackTrace': str(e),

@@ -4,14 +4,17 @@ Date: May 29, 2018
 
 Set of utilities to assist in scraping contents of a web page.
 """
+from utilities.utilities import MyUtilities
 from bs4 import BeautifulSoup
 import re
 import requests
 
-class ScrapeUtilities(object):
+class ScrapeUtilities(MyUtilities):
 
     def __init__(self):
         super(ScrapeUtilities, self).__init__()
+        self.logger = self.getLogger(logFileName='pk_scraperService_scrapeUtilities',
+                                     logFilePath='./logs/pk_scraperService_scrapeUtilities.log')
         self.soupAnUrl = self._soupAnUrl
         self.getDomIdContainingAttribute = self._getDomIdContainingAttribute
         self.seekAllScriptsContainingKey = self._seekAllScriptsContainingKey
@@ -27,9 +30,9 @@ class ScrapeUtilities(object):
         try:
             return soup.find_all(domType, {attributeName:re.compile('^{}'.format(attributeContents))})
         except Exception as e:
-            print('######### [ScrapeUtilities]: Error getting DOM IDs containing attribute {}'.format(attributeContents))
-            print(str(e))
-            print('######### [ScrapeUtilities]: End of stackTrace\n')
+            self.logger.info('######### [ScrapeUtilities]: Error getting DOM IDs containing attribute {}'.format(attributeContents))
+            self.logger.exception(str(e))
+            self.logger.info('######### [ScrapeUtilities]: End of stackTrace\n')
 
     def _soupAnUrl(self, targetUrl='http://www.google.com'):
 
@@ -42,9 +45,9 @@ class ScrapeUtilities(object):
             return soup
 
         except Exception as e:
-            print('######### [ScrapeUtilities]: Error soupifying {}'.format(targetUrl))
-            print(str(e))
-            print('######### [ScrapeUtilities]: End of stackTrace\n')
+            self.logger.info('######### [ScrapeUtilities]: Error soupifying {}'.format(targetUrl))
+            self.logger.exception(str(e))
+            self.logger.info('######### [ScrapeUtilities]: End of stackTrace\n')
 
     def _seekAllScriptsContainingKey(self, soup, key):
 
@@ -55,8 +58,8 @@ class ScrapeUtilities(object):
                 'totalMatch': len(scripts)
             }
         except Exception as e:
-            print('######### [ScrapeUtilities]: Error scraping scripts for matching key: {}'.format(key))
-            print(str(e))
-            print('######### [ScrapeUtilities]: End of stackTrace\n')
+            self.logger.info('######### [ScrapeUtilities]: Error scraping scripts for matching key: {}'.format(key))
+            self.logger.exception(str(e))
+            self.logger.info('######### [ScrapeUtilities]: End of stackTrace\n')
 
 
