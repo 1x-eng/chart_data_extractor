@@ -115,11 +115,13 @@ class AmchartsScraper(ScrapeUtilities, MyUtilities):
 
                 extractedResults['message'] = 'Successfully scraped AmCharts from given target URL'
                 extractedResults['status'] = 'Success'
+                extractedResults['target'] = 'Amcharts'
                 extractedResults['scrapeResults'] = webdriverResults
                 return extractedResults
 
             extractedResults['message'] = 'Successfully scraped AmCharts from given target URL'
             extractedResults['status'] = 'Success'
+            extractedResults['target'] = 'Amcharts'
             extractedResults['scrapeResults'] = soupifiedResults
             return extractedResults
 

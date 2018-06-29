@@ -150,11 +150,13 @@ class HighchartsScraper(ScrapeUtilities, MyUtilities):
 
                 extractedResults['message'] = 'Successfully scraped Highcharts from given target URL'
                 extractedResults['status'] = 'Success'
+                extractedResults['target'] = 'Highcharts'
                 extractedResults['scrapeResults'] = webdriverResults
                 return extractedResults
 
             extractedResults['message'] = 'Successfully scraped Highcharts from given target URL'
             extractedResults['status'] = 'Success'
+            extractedResults['target'] = 'Highcharts'
             extractedResults['scrapeResults'] = soupifiedResults
             return extractedResults
 
