@@ -37,7 +37,7 @@ http://localhost:8000/v1/chartDataExtractor?targetUrl=http://www.google.com
 
 If you are a business user, visit https://dextr.pruthvikumar.ml to check a more complete functional product. 
 
-If you dont feel confident of backend development and want to use the webservice, you could use https://dextr-service.pruthvikumar.ml/v1/chartDataExtractor/targetUrl=http://www.google.com (feel free to edit targetUrl to your choice) for a readily available backend service.
+If you dont feel confident of backend development and want to use the webservice, you could use https://dextr-service.pruthvikumar.ml/v1/chartDataExtractor?targetUrl=https://www.google.com ( feel free to edit targetUrl to your choice) for a readily available backend service.
 
 # Support:
 
