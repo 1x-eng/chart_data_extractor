@@ -23,22 +23,26 @@ class ChartsDataExtractor(AmchartsScraper, HighchartsScraper):
         :param targetUrl:
         :return:
         """
-        #Step 1: Identify type of charts present.
-        supportedChartingFrameworks = ['Amcharts', 'Highcharts']
-        soupifiedText = self.soupAnUrl(targetUrl).text
-        chartsStatus = list(map(lambda cf: cf in soupifiedText or cf.lower() in soupifiedText
-                                          or cf.upper() in soupifiedText, supportedChartingFrameworks))
+        # Step 1: Identify type of charts present.
+        # This identification is not working very well. Better multiprocess and check for all supported charts.- PK | 25 Jul 18
+        # supportedChartingFrameworks = ['Amcharts', 'Highcharts']
+        # soupifiedText = self.soupAnUrl(targetUrl).text
+        # chartsStatus = list(map(lambda cf: cf in soupifiedText or cf.lower() in soupifiedText
+        #                                   or cf.upper() in soupifiedText, supportedChartingFrameworks))
 
-        if (chartsStatus[0]):
-            return self.amcExtractor(targetUrl)
-        elif (chartsStatus[1]):
-            return self.hcExtractor(targetUrl)
+        amc_sd = self.amcExtractor(targetUrl)
+        hc_sd = self.hcExtractor(targetUrl)
+
+        if (amc_sd['status'] == 'Success'):
+            return amc_sd
+        elif (hc_sd['status'] == 'Success'):
+            return hc_sd
         else:
             return {'message': 'There is either no Charts in the given URL or there is one that is not yet supported.'
-                               'At this moment, we are supporting only Amcharts and Highcharts. If you have any '
-                               'other library that you think should be prioritized for next release, please write to '
-                               'PK @ pruthvikumar.123@gmail.com with valid subject line (eg. Scraper Support - Please '
-                               'extend support for charting library "xyz"'}
+                                    'At this moment, we are supporting only Amcharts and Highcharts. If you have any '
+                                    'other library that you think should be prioritized for next release, please write to '
+                                    'PK @ pruthvikumar.123@gmail.com with valid subject line (eg. Scraper Support - Please '
+                                    'extend support for charting library "xyz"'}
 
 
 if __name__ == '__main__':
