@@ -41,7 +41,7 @@ class AmchartsScraper(ScrapeUtilities, MyUtilities):
         """
         try:
             self.driver.get(targetUrl)
-            self.driver.implicitly_wait(1) # wait is to ensure chart is rendered before driver tries to select parent node.
+            self.driver.implicitly_wait(1.5) # wait is to ensure chart is rendered before driver tries to select parent node.
             #As profiled on 25 June 18 (for HighCharts; not checked for AmCharts), needs minimum wait time of 0.5 seconds. Have made it 1 to include buffer.
             chart_data = self.driver.execute_script('var chartData = {}; '
                                                 'AmCharts.charts.map((el, ix) => {'

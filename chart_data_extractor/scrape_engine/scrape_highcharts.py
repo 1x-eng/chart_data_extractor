@@ -68,8 +68,8 @@ class HighchartsScraper(ScrapeUtilities, MyUtilities):
         try:
             #get DOM id hosting highcharts.
             self.driver.get(self.seekUrl(targetUrl))
-            self.driver.implicitly_wait(1) # wait is to ensure chart is rendered before driver tries to select parent node.
-            #As profiled on 25 June 18, needs minimum wait time of 0.5 seconds. Have made it 1 to include buffer.
+            self.driver.implicitly_wait(1.5) # wait is to ensure chart is rendered before driver tries to select parent node.
+            #As profiled on 25 June 18, needs minimum wait time of 0.5 seconds, more than 1s on server; hence changed to 1.5s.
             chartElements = self.driver.find_elements_by_class_name('highcharts-container')
             chartIds = list(map( lambda ce: ce.find_element_by_xpath('..')
                                                .get_attribute('data-highcharts-chart'), chartElements))
