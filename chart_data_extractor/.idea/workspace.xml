@@ -28,8 +28,8 @@
       <file leaf-file-name="scrape_amcharts.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/scrape_engine/scrape_amcharts.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+            <state relative-caret-position="405">
+              <caret line="75" column="41" lean-forward="true" selection-start-line="75" selection-start-column="41" selection-end-line="75" selection-end-column="41" />
               <folding>
                 <element signature="e#189#219#0" expanded="true" />
               </folding>
@@ -37,9 +37,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="scrape_utilities.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="scrape_utilities.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/scrape_engine/scrape_utilities.py">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="352">
+              <caret line="54" column="67" lean-forward="true" selection-start-line="54" selection-start-column="12" selection-end-line="54" selection-end-column="67" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file leaf-file-name="conductExtraction.py" pinned="false" current-in-tab="false">
@@ -70,7 +74,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="scraper_service.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="scraper_service.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/scraper_service.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="240">
@@ -108,10 +112,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="394" />
-    <option name="y" value="887" />
+    <option name="x" value="65" />
+    <option name="y" value="576" />
     <option name="width" value="1295" />
-    <option name="height" value="192" />
+    <option name="height" value="789" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -186,8 +190,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="49" y="594" width="1311" height="771" extended-state="7" />
-    <editor active="true" />
+    <frame x="49" y="594" width="1311" height="771" extended-state="6" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24942791" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -272,9 +275,6 @@
     <entry file="file://$PROJECT_DIR$/utilities/utilities.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/scrape_engine/scrape_utilities.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/scrape_engine/scrape_highcharts.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -296,20 +296,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/scraper_service.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="20" column="37" selection-start-line="20" selection-start-column="19" selection-end-line="20" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/scrape_engine/scrape_amcharts.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+        <state relative-caret-position="405">
+          <caret line="75" column="41" lean-forward="true" selection-start-line="75" selection-start-column="41" selection-end-line="75" selection-end-column="41" />
           <folding>
             <element signature="e#189#219#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scraper_service.py">
+    <entry file="file://$PROJECT_DIR$/scrape_engine/scrape_utilities.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="20" column="37" selection-start-line="20" selection-start-column="19" selection-end-line="20" selection-end-column="37" />
+        <state relative-caret-position="352">
+          <caret line="54" column="67" lean-forward="true" selection-start-line="54" selection-start-column="12" selection-end-line="54" selection-end-column="67" />
         </state>
       </provider>
     </entry>

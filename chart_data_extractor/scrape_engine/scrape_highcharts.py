@@ -68,6 +68,8 @@ class HighchartsScraper(ScrapeUtilities, MyUtilities):
         try:
             #get DOM id hosting highcharts.
             self.driver.get(self.seekUrl(targetUrl))
+            self.driver.implicitly_wait(1) # wait is to ensure chart is rendered before driver tries to select parent node.
+            #As profiled on 25 June 18, needs minimum wait time of 0.5 seconds. Have made it 1 to include buffer.
             chartElements = self.driver.find_elements_by_class_name('highcharts-container')
             chartIds = list(map( lambda ce: ce.find_element_by_xpath('..')
                                                .get_attribute('data-highcharts-chart'), chartElements))
@@ -179,4 +181,5 @@ if __name__ == '__main__':
     he = HighchartsScraper()
     #print(he.conventionalExtractor('https://www.marketwatch.com/investing/future/nasdaq%20100%20futures'))
     #print(he.soupifiedExtractor('https://www.moneycontrol.com/sensex/bse/sensex-live'))
-    print(he.hcExtractor('https://www.marketwatch.com/investing/future/nasdaq%20100%20futures'))
+    #print(he.hcExtractor('https://www.marketwatch.com/investing/future/nasdaq%20100%20futures'))
+    print(he.hcExtractor('https://www.lecho.be/customers/mediafin.be/funds_lecho/_/Fund/60121362/chart'))
