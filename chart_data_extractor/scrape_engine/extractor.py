@@ -34,8 +34,10 @@ class ChartsDataExtractor(AmchartsScraper, HighchartsScraper):
         hc_sd = self.hcExtractor(targetUrl)
 
         if (amc_sd['status'] == 'Success'):
+            print('AMC successful')
             return amc_sd
         elif (hc_sd['status'] == 'Success'):
+            print('HC successful')
             return hc_sd
         else:
             return {'message': 'There is either no Charts in the given URL or there is one that is not yet supported.'
