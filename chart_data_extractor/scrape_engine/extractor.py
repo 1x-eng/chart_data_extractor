@@ -32,7 +32,7 @@ class ChartsDataExtractor(AmchartsScraper, HighchartsScraper):
 
         amc_sd = self.amcExtractor(targetUrl)
         hc_sd = self.hcExtractor(targetUrl)
-
+        print(hc_sd)
         if (amc_sd['status'] == 'Success'):
             print('AMC successful')
             return amc_sd
@@ -40,6 +40,7 @@ class ChartsDataExtractor(AmchartsScraper, HighchartsScraper):
             print('HC successful')
             return hc_sd
         else:
+            print('No supported chart present')
             return {'message': 'There is either no Charts in the given URL or there is one that is not yet supported.'
                                     'At this moment, we are supporting only Amcharts and Highcharts. If you have any '
                                     'other library that you think should be prioritized for next release, please write to '
