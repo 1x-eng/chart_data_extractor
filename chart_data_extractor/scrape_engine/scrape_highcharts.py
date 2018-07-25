@@ -80,7 +80,8 @@ class HighchartsScraper(ScrapeUtilities, MyUtilities):
                                             '{"seriesName": chartContents.name, "xAxisData" : chartContents.xData, '
                                             '"yAxisData": chartContents.yData}}); return chartData;'), chartIds))
 
-            return chartDataStore
+            return chartDataStore if len(chartDataStore) >= 1 else {'message': 'There was no Highcharts Object '
+                                                                               'found for webDriver to scrape'}
 
         except Exception as e:
             self.logger.info('#########[HighchartsScraper]: Error while scraping Highcharts from given URL -{} using '
@@ -183,3 +184,4 @@ if __name__ == '__main__':
     #print(he.soupifiedExtractor('https://www.moneycontrol.com/sensex/bse/sensex-live'))
     #print(he.hcExtractor('https://www.marketwatch.com/investing/future/nasdaq%20100%20futures'))
     print(he.hcExtractor('https://www.lecho.be/customers/mediafin.be/funds_lecho/_/Fund/60121362/chart'))
+    #print(he.hcExtractor('https://google.com'))
