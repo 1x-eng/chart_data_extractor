@@ -1,47 +1,26 @@
 # Chart Data Extractor - SDK | API
-This Microservice will help scrape data out of chart(s) presented on any given website. (At this moment, i only support scrape from HighCharts and AmCharts. Other libraries will be included in the near future). 
+This webservice will help scrape data out of chart(s) presented on any given website. (At this moment, I only support scrape from HighCharts and AmCharts. Other libraries, maybe next time). 
 
-This is a webService powered by Python(v3).
-
-NOTE: THIS CODEBASE USES FALCON & GUNICORN TO FACILITATE WEB SERVICE. GUNICORN WORKS ONLY ON UNIX/LINUX MACHINES. HENCE, THIS WILL BE OPERATIONAL ONLY ON LINUX DISTRO'S /UNIX MACHINES. WINDOWS IMPLEMENTATION IS WIP.
+NOTE: uses gunicorn (https://docs.gunicorn.org/en/stable/index.html) which is WSGI HTTP server for `*nix` systems. On windows, you might want to swap gunicorn with uWSGI or other alternatives.
 
 # Features:
 
 * REST services for extracting data via URL. 
-* No heavy setup/Code addition required. 
+* Simpler to get started. 
 
-# Setup:
+# Getting Started:
 
-* Clone this repo; ensure to cd into 'chart_Data_extractor' directory.
-* pip install all the requirements (Python=3). (NOTE: Always better to create a dedicated virtual environment. Either using Anaconda /Conventional Python).
-* To start the web service, type the following command (whilst staying on 'chart_Data_extractor' directory):
+* Clone this repo > `cd chart_data_extractor.
+* `pip install -r requirements.txt` in cenv of your choice (py=3)
 
 ```python
 gunicorn -b localhost:8000 scraper_service:app --threads 3 --reload
 ```
 
-* The above command must start gunicorn server locally and listen on port 8000 (Please feel free to change this to your convinience).
-
-* Go to webserver and check with this endpoint:
-```
-http://localhost:8000/
-```
-
-* To conduct scrape, try this endpoint:
+* To extract data from a (supported)chart, try this:
 ```
 http://localhost:8000/v1/chartDataExtractor?targetUrl=http://www.google.com
 ```
-
-
-# Non-Developers:
-
-If you are a business user, visit https://dextr.pruthvikumar.ml to check a more complete functional product. 
-
-If you dont feel confident of backend development and want to use the webservice, you could use https://dextr-service.pruthvikumar.ml/v1/chartDataExtractor?targetUrl=https://www.google.com ( feel free to edit targetUrl to your choice) for a readily available backend service.
-
-# Support:
-
-For any issues write to Pruthvi @ pruthvikumar.123@gmail.com. Ensure to have a valid subject line, detailed message with appropriate stack trace to expect prompt/quick response.
 
 
 ---------
